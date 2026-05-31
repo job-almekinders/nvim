@@ -1,3 +1,8 @@
+-- Insert shortdate
+vim.keymap.set("n", "<leader>d1", function()
+  vim.api.nvim_put({ os.date("%y%m%d") }, "l", true, true)
+end, { desc = "Insert short date" })
+
 -- Toggle diagnostics for the current buffer
 vim.keymap.set("n", "<leader>td", function()
   local bufnr = vim.api.nvim_get_current_buf()

@@ -3,6 +3,7 @@ vim.lsp.enable({
   "bash_ls",
   "bicep_ls",
   "docker_ls",
+  "gopls",
   "lua_ls",
   "pyright",
   "ruff",

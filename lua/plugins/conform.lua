@@ -8,6 +8,8 @@ return {
         bash = { "shfmt" },
         sh = { "shfmt" },
 
+        go = { "goimports" },
+
         -- TODO: Bicep should be handled by LSP (needs to be validated).
         json = { "prettier" },
         jsonc = { "prettier" },
