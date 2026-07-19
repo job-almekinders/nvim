@@ -1,4 +1,4 @@
--- Util methods that I use to handle my todo list in plain markdown.
+-- Util methods to keep todo lists in plain markdown files.
 
 -- Insert [running] at the start of the current line
 vim.keymap.set("n", "<leader>ir", "0i[running] <Esc>", { desc = "Insert [running] at line start" })
@@ -59,6 +59,7 @@ local function find_markdown_section_index(lines, section_name)
   return nil
 end
 
+-- Get the next todo item from one of the headers below
 local function pull_next_focus_from_prioritized_sections()
   local buffer_number = vim.api.nvim_get_current_buf()
   local buffer_lines = vim.api.nvim_buf_get_lines(buffer_number, 0, -1, false)
@@ -149,6 +150,7 @@ local function pull_next_focus_from_prioritized_sections()
   vim.api.nvim_win_set_cursor(0, { 1, 0 })
 end
 
+-- Push the top most todo item into one of the headers below
 local function push_top_focus_to_next_header()
   local bufnr = vim.api.nvim_get_current_buf()
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
