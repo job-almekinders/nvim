@@ -1,6 +1,12 @@
 -- I do not always want to format a markdown file as it can lead to a lot of changes that I do not
 -- want to include in the same diff. Therefore, this method allows me to manually run formatting
 -- when I want to.
+
+vim.opt.colorcolumn = "100"
+
+-- Enable auto wrapping
+vim.opt_local.textwidth = 100
+
 local function format_markdown_with_prettier()
   local bufnr = vim.api.nvim_get_current_buf()
   local filename = vim.api.nvim_buf_get_name(bufnr)
@@ -41,4 +47,3 @@ vim.keymap.set("n", "<leader>fm", format_markdown_with_prettier, {
   buffer = true,
   desc = "Format markdown with Prettier",
 })
-
