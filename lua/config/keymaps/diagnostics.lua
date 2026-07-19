@@ -6,4 +6,3 @@ vim.keymap.set("n", "<leader>td", function()
   vim.diagnostic.enable(not enabled, { bufnr = bufnr })
   print(enabled and "Diagnostics disabled" or "Diagnostics enabled")
 end, { desc = "[t]oggle [d]iagnostics for current buffer" })
-
