@@ -23,10 +23,10 @@ return {
           "<cmd>BufferLineCloseOthers<cr>",
           desc = "Close all buffers except current",
         },
-        { "<leader>br", "<cmd>BufferLineCloseRight<cr>", desc = "Close buffers to the right" },
-        { "<leader>bl", "<cmd>BufferLineCloseLeft<cr>", desc = "Close buffers to the left" },
-        { "<leader>bp", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer left" },
-        { "<leader>bn", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer right" },
+        { "<leader>bcr", "<cmd>BufferLineCloseRight<cr>", desc = "Close buffers to the right" },
+        { "<leader>bcl", "<cmd>BufferLineCloseLeft<cr>", desc = "Close buffers to the left" },
+        { "<leader>bml", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer left" },
+        { "<leader>bmr", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer right" },
       }
 
       for i = 1, 9 do
