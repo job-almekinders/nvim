@@ -17,7 +17,8 @@ brew_packages=(
     hadolint
     imagemagick
     lua-language-server
-    pyright
+    # might require adding/trusting taps
+    omnisharp/omnisharp-roslyn/omnisharp
     ruff
     shfmt
     stylua

@@ -8,6 +8,7 @@ return {
     config = function()
       local parsers = {
         "bash",
+        "c_sharp",
         "css",
         "diff",
         "dockerfile",
