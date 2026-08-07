@@ -1,1 +1,1 @@
-For Neovim version see `.nvim-version`
+For Neovim version see .nvim-version
