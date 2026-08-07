@@ -21,6 +21,9 @@ local function read_theme_name()
   if name == "gruvbox" then
     return "gruvbox"
   end
+  if name == "gruvbox-light" then
+    return "gruvbox-light"
+  end
 
   return "catppuccin"
 end
@@ -28,7 +31,7 @@ end
 M.name = read_theme_name()
 
 function M.nvim_colorscheme()
-  if M.name == "gruvbox" then
+  if M.name == "gruvbox" or M.name == "gruvbox-light" then
     return "gruvbox-material"
   end
 
@@ -36,11 +39,19 @@ function M.nvim_colorscheme()
 end
 
 function M.lualine_theme()
-  if M.name == "gruvbox" then
+  if M.name == "gruvbox" or M.name == "gruvbox-light" then
     return "gruvbox-material"
   end
 
   return "catppuccin-macchiato"
+end
+
+function M.nvim_background()
+  if M.name == "gruvbox-light" then
+    return "light"
+  end
+
+  return "dark"
 end
 
 return M
