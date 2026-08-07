@@ -10,6 +10,7 @@ fi
 brew_packages=(
     bash-language-server
     docker-language-server
+    dotnet
     fd
     ghostscript
     go
