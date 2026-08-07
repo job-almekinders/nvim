@@ -14,12 +14,6 @@ Happy to get some feedback :)
 Note: The `scripts/install_deps.sh` script uses brew to install all the outside-of-Neovim
 requirements. I prefer to do all the installs globally instead of relying on a tool like `mason`.
 
-### Optional
-
-- `magick` / `imagemagick` — image previews
-- `gs` / `ghostscript` — PDF previews
-- `tectonic` — LaTeX support
-
 ## Setup
 
 Clone into your Neovim config directory:
@@ -42,38 +36,14 @@ python3 -m venv ~/.venvs/nvim
 
 The config already points to `~/.venvs/nvim/bin/python` via `vim.g.python3_host_prog`.
 
-## Debugging (nvim-dap)
+## ty
 
-To debug with environment variables from a file:
-
-```bash
-# requires `dotenv` (brew installable)
-dotenv -f <env_file> run nvim .
-```
-
-`debugpy` should be installed via `pipx`:
+`ty` provides both type checking and LSP support. Run it with:
 
 ```bash
-pipx install debugpy
+ty check
 ```
-
-## direnv / poetry
-
-To automatically activate a Poetry environment in a project directory:
-
-```bash
-echo "layout poetry" >> .envrc
-direnv allow
-```
-
-## mypy
-
-`mypy` reads from `~/.mypy.ini` — place your global mypy config there.
 
 ## Rust
 
 `rustfmt` should be installed via `rustup component add rustfmt`.
-
-## Bicep
-
-The Bicep LSP requires `dotnet`, installable via Homebrew: `brew install dotnet`.

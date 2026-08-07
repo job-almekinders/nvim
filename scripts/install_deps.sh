@@ -21,6 +21,7 @@ brew_packages=(
     # might require adding/trusting taps
     omnisharp/omnisharp-roslyn/omnisharp
     ruff
+    ty
     shfmt
     stylua
     tectonic

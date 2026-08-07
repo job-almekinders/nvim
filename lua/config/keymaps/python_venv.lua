@@ -8,7 +8,7 @@ local function activate_virtualenv(venv_path)
 end
 
 local function restart_python_lsp_servers()
-  local target_servers = { pyright = true, ruff = true }
+  local target_servers = { ty = true }
   local active_clients = {}
   local active_server_names = {}
   local seen = {}
@@ -29,7 +29,7 @@ local function restart_python_lsp_servers()
     end
   end
 
-  vim.lsp.enable({ "pyright", "ruff" })
+  vim.lsp.enable({ "ty" })
   return active_server_names
 end
 
@@ -45,7 +45,7 @@ local function notify_venv_activated(label, active_server_names)
     )
   else
     vim.notify(
-      string.format("%s venv activated; open a Python buffer to start pyright/ruff.", label),
+      string.format("%s venv activated; open a Python buffer to start ty.", label),
       vim.log.levels.INFO
     )
   end

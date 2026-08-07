@@ -17,7 +17,7 @@ return {
         -- solved when `prettier` runs via `conform`.
         -- markdown = { "markdownlint" },
 
-        python = { "mypy" },
+        -- Python linting is handled by ty LSP
 
         -- Rust linting is handled by rust-analyzer LSP (includes clippy)
 
