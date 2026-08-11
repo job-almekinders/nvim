@@ -1,10 +1,29 @@
 -- Util methods to keep todo lists in plain markdown files.
 
--- Insert [running] at the start of the current line
-vim.keymap.set("n", "<leader>ir", "0i[running] <Esc>", { desc = "Insert [running] at line start" })
+local function insert_tag_at_line_start(tag, move_cursor_into_tag)
+  local line = vim.api.nvim_get_current_line()
+  local list_prefix, content = line:match("^(%s*%- )(.*)$")
+  local prefix = list_prefix or ""
+  local rest = content or line
 
--- Insert [] at the start of the current line and move to insert mode into the brackets
-vim.keymap.set("n", "<leader>it", "0i[] <Esc>hi", { desc = "Insert [] at line start" })
+  vim.api.nvim_set_current_line(prefix .. tag .. " " .. rest)
+
+  if move_cursor_into_tag then
+    local row = vim.api.nvim_win_get_cursor(0)[1]
+    vim.api.nvim_win_set_cursor(0, { row, #prefix + 1 })
+    vim.cmd.startinsert()
+  end
+end
+
+-- Insert [running] at the start of the current line (after "- " when present)
+vim.keymap.set("n", "<leader>ir", function()
+  insert_tag_at_line_start("[running]", false)
+end, { desc = "Insert [running] at line start" })
+
+-- Insert [] at the start of the current line (after "- " when present), then enter insert mode inside []
+vim.keymap.set("n", "<leader>it", function()
+  insert_tag_at_line_start("[]", true)
+end, { desc = "Insert [] at line start" })
 
 -- Remove leading [tag] from the current line (e.g. [some-tag] )
 vim.keymap.set("n", "<leader>iT", function()
