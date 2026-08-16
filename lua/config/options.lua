@@ -4,11 +4,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Spead up Neovim
+-- Speed up Neovim
 if vim.loader then
   vim.loader.enable()
 end
-vim.g.do_filetype_lua = 1
 vim.opt.shell = "/bin/sh"
 
 -- [[ Setting options ]]
@@ -29,8 +28,8 @@ vim.opt.relativenumber = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
 
--- Show the active vim mode --> lualine should show this as well
-vim.opt.showmode = true
+-- lualine shows the current mode; hide the default mode indicator
+vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
