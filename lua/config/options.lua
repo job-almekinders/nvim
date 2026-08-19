@@ -105,12 +105,6 @@ vim.o.foldlevel = 99 -- Using nvim-ufo provider needs a large value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
--- continue with comments or not
--- r – continue comments when pressing Enter in Insert mode
--- o – continue comments when using o or O in Normal mode
--- c – auto-wrap comments and continue them when wrapping
--- vim.opt.formatoptions:remove({ "c", "r", "o" })
-
 -- make sure it does not pre select the first autocomplete suggestion
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
 
