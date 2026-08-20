@@ -1,10 +1,13 @@
 -- Util methods to keep todo lists in plain markdown files.
 
+local function split_markdown_list_prefix(line)
+  local list_prefix, content = line:match("^(%s*%- )(.*)$")
+  return list_prefix or "", content or line
+end
+
 local function insert_tag_at_line_start(tag, move_cursor_into_tag)
   local line = vim.api.nvim_get_current_line()
-  local list_prefix, content = line:match("^(%s*%- )(.*)$")
-  local prefix = list_prefix or ""
-  local rest = content or line
+  local prefix, rest = split_markdown_list_prefix(line)
 
   vim.api.nvim_set_current_line(prefix .. tag .. " " .. rest)
 
@@ -28,7 +31,8 @@ end, { desc = "Insert [] at line start" })
 -- Remove leading [tag] from the current line (e.g. [some-tag] )
 vim.keymap.set("n", "<leader>iT", function()
   local line = vim.api.nvim_get_current_line()
-  vim.api.nvim_set_current_line((line:gsub("^%[[^%]]*%]%s*", "")))
+  local prefix, rest = split_markdown_list_prefix(line)
+  vim.api.nvim_set_current_line(prefix .. (rest:gsub("^%[[^%]]*%]%s*", "")))
 end, { desc = "Remove leading [Tag] from line" })
 
 -- Open today's todo file in ~/todos (e.g. monday.md)
