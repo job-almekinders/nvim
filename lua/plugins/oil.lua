@@ -3,7 +3,7 @@ return {
   ---@module 'oil'
   ---@type oil.SetupOpts
   opts = {
-    default_file_explorer = false,
+    default_file_explorer = true,
     delete_to_trash = true,
     view_options = {
       show_hidden = true,
@@ -13,7 +13,17 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
   -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
   keys = {
-    { "<leader>go", "<cmd>Oil<cr>", desc = "Open Oil" },
+    {
+      "<leader>e",
+      function()
+        if vim.bo.filetype == "oil" then
+          require("oil").close()
+        else
+          require("oil").open()
+        end
+      end,
+      desc = "Toggle File Explorer",
+    },
     {
       "<leader>yp",
       function()
@@ -34,7 +44,7 @@ return {
         vim.fn.setreg("+", path)
         vim.notify("Yanked path: " .. path)
       end,
-      desc = "[Y]ank current [P]ath (Oil)",
+      desc = "[Y]ank full [P]ath (Oil)",
     },
   },
   lazy = false,

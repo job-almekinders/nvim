@@ -11,8 +11,8 @@ return {
         theme = theme.lualine_theme(),
         globalstatus = true, -- Force one statusline instead of one per window
         disabled_filetypes = {
-          statusline = { "snacks_dashboard", "snacks_explorer" },
-          winbar = { "snacks_dashboard", "snacks_explorer" },
+          statusline = { "snacks_dashboard" },
+          winbar = { "snacks_dashboard" },
         },
       },
       sections = {

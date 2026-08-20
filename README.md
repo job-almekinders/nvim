@@ -9,7 +9,7 @@ Happy to get some feedback :)
 
 - [Neovim](https://neovim.io/) (see `.nvim-version` for the version I run)
 - A [Nerd Font](https://www.nerdfonts.com/) installed and set in your terminal
-- [fd](https://github.com/sharkdp/fd) — for the file picker/explorer (snacks.nvim)
+- [fd](https://github.com/sharkdp/fd) — for the file picker (snacks.nvim)
 
 Note: The `scripts/install_deps.sh` script uses brew to install all the outside-of-Neovim
 requirements. I prefer to do all the installs globally instead of relying on a tool like `mason`.

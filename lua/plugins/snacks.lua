@@ -6,19 +6,12 @@ return {
   opts = {
     bigfile = { enabled = true },
     dashboard = { enabled = true },
-    explorer = { enabled = true },
     image = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
     picker = {
       enabled = true,
       sources = {
-        explorer = {
-          -- focus = "input", -- To put the focus on the search bar when opened.
-          auto_close = true, -- This is required to close the explorer when opening a file.
-          hidden = true,
-          ignored = false,
-        },
         files = {
           hidden = true,
           ignored = false,
@@ -48,13 +41,6 @@ return {
     words = { enabled = true },
   },
   keys = {
-    {
-      "<leader>e",
-      function()
-        require("snacks").explorer()
-      end,
-      desc = "Toggle File Explorer",
-    },
     {
       "<leader>ff",
       function()
