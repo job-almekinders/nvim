@@ -6,12 +6,18 @@ return {
   opts = {
     bigfile = { enabled = true },
     dashboard = { enabled = true },
+    explorer = { enabled = true },
     image = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
     picker = {
       enabled = true,
       sources = {
+        explorer = {
+          auto_close = true, -- This is required to close the explorer when opening a file.
+          hidden = true,
+          ignored = true,
+        },
         files = {
           hidden = true,
           ignored = false,
@@ -41,6 +47,13 @@ return {
     words = { enabled = true },
   },
   keys = {
+    {
+      "<leader>fe",
+      function()
+        require("snacks").explorer()
+      end,
+      desc = "Toggle File Explorer",
+    },
     {
       "<leader>ff",
       function()
