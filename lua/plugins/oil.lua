@@ -14,7 +14,7 @@ return {
   -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
   keys = {
     {
-      "<leader>e",
+      "<leader>e", -- `e` for explorer
       function()
         if vim.bo.filetype == "oil" then
           require("oil").close()
