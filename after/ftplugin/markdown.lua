@@ -2,9 +2,14 @@
 -- want to include in the same diff. Therefore, the methods here allow me to manually run formatting
 -- when I want to.
 
--- Enable auto wrapping
-vim.opt_local.textwidth = 100
+-- Uncomment to enable auto wrapping
+-- vim.opt_local.textwidth = 100
+
 vim.opt.colorcolumn = "100"
+vim.opt_local.shiftwidth = 2
+vim.opt_local.tabstop = 2
+vim.opt_local.softtabstop = 2
+vim.opt_local.expandtab = true
 
 local function format_markdown_with_prettier()
   local bufnr = vim.api.nvim_get_current_buf()
