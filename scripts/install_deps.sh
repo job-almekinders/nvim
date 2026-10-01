@@ -18,7 +18,6 @@ brew_packages=(
     hadolint
     imagemagick
     lua-language-server
-    # might require adding/trusting taps
     omnisharp/omnisharp-roslyn/omnisharp
     ruff
     ty
@@ -26,7 +25,6 @@ brew_packages=(
     stylua
     tectonic
     terraform-ls
-    tflint
     tree-sitter-cli
     yamlfmt
     yaml-language-server
