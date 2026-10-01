@@ -15,6 +15,7 @@ brew_packages=(
     ghostscript
     go
     gopls
+    gnu-sed
     hadolint
     imagemagick
     lua-language-server
