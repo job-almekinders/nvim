@@ -19,6 +19,7 @@ brew_packages=(
     hadolint
     imagemagick
     lua-language-server
+    prettier
     ruff
     ty
     shfmt
