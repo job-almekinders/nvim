@@ -5,7 +5,6 @@ vim.lsp.enable({
   "docker_ls",
   "gopls",
   "lua_ls",
-  "omnisharp",
   "ty",
   "rust_analyzer",
   "terraform_ls",

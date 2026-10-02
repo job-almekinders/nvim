@@ -19,7 +19,6 @@ brew_packages=(
     hadolint
     imagemagick
     lua-language-server
-    omnisharp/omnisharp-roslyn/omnisharp
     ruff
     ty
     shfmt
