@@ -12,6 +12,7 @@ brew_packages=(
     docker-language-server
     dotnet
     fd
+    eslint
     ghostscript
     go
     gopls
@@ -27,6 +28,7 @@ brew_packages=(
     tectonic
     terraform-ls
     tree-sitter-cli
+    typescript-language-server
     yamlfmt
     yaml-language-server
     yarn

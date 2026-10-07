@@ -25,6 +25,9 @@ return {
         tf = { "tflint" },
         tfvars = { "tflint" },
 
+        typescript = { "eslint" },
+        typescriptreact = { "eslint" },
+
         yaml = { "yamllint" },
       }
 

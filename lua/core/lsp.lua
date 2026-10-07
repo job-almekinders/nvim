@@ -8,6 +8,7 @@ vim.lsp.enable({
   "ty",
   "rust_analyzer",
   "terraform_ls",
+  "ts_ls",
   "yaml_ls",
 })
 

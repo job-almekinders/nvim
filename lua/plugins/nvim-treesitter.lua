@@ -18,6 +18,8 @@ return {
         "hcl",
         "html",
         "javascript",
+        "tsx",
+        "typescript",
         "json",
         "jsonc",
         "lua",

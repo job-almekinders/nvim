@@ -26,6 +26,8 @@ return {
           lsp_format = "first",
         },
         rust = { "rustfmt" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
         -- Terraform is handled by LSP
         yaml = { "prettier" },
       },
