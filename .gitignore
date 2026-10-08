@@ -1,1 +1,3 @@
 ignored
+# Machine-specific settings (see lua/config/local.example.lua)
+lua/config/local.lua
