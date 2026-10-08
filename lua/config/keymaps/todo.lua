@@ -35,6 +35,41 @@ vim.keymap.set("n", "<leader>iT", function()
   vim.api.nvim_set_current_line(prefix .. (rest:gsub("^%[[^%]]*%]%s*", "")))
 end, { desc = "Remove leading [Tag] from line" })
 
+-- Toggle "- [ ]" <-> "- [x]"; adds "[ ]" to list items without a checkbox
+local function toggle_checkbox(line)
+  local prefix, mark, rest = line:match("^(%s*%- )%[([ xX])%](.*)$")
+  if prefix then
+    return prefix .. (mark == " " and "[x]" or "[ ]") .. rest
+  end
+  local list_prefix, content = line:match("^(%s*%- )(.*)$")
+  if list_prefix then
+    return list_prefix .. "[ ] " .. content
+  end
+  return line
+end
+
+local function toggle_checkboxes_in_range(first, last)
+  local lines = vim.api.nvim_buf_get_lines(0, first - 1, last, false)
+  for i, line in ipairs(lines) do
+    lines[i] = toggle_checkbox(line)
+  end
+  vim.api.nvim_buf_set_lines(0, first - 1, last, false, lines)
+end
+
+vim.keymap.set("n", "<leader>tx", function()
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  toggle_checkboxes_in_range(row, row)
+end, { desc = "[t]odo toggle checkbo[x]" })
+
+vim.keymap.set("x", "<leader>tx", function()
+  local first, last = vim.fn.line("v"), vim.fn.line(".")
+  if first > last then
+    first, last = last, first
+  end
+  toggle_checkboxes_in_range(first, last)
+  vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
+end, { desc = "[t]odo toggle checkbo[x]" })
+
 -- Open today's todo file in ~/todos (e.g. monday.md)
 vim.keymap.set("n", "<leader>gt", function()
   local weekday = os.date("%A"):lower()
