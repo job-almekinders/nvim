@@ -59,7 +59,8 @@ vim.api.nvim_create_autocmd("FileType", {
     -- n: Recognize numbered lists when formatting text
     vim.opt_local.formatoptions:append("ron")
 
-    -- Tell Neovim to treat '1.', '-', '+', and '*' followed by a space as list leaders
-    vim.opt_local.comments = "b:*,b:-,b:+,n:>,b:1."
+    -- Tell Neovim to treat '- [ ]', '1.', '-', '+', and '*' followed by a space as list leaders.
+    -- '- [ ]' must come before '-' so the checkbox is continued instead of a plain bullet.
+    vim.opt_local.comments = "b:- [ ],b:*,b:-,b:+,n:>,b:1."
   end,
 })
