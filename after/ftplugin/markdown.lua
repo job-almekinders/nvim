@@ -50,3 +50,16 @@ vim.keymap.set("n", "<leader>fm", format_markdown_with_prettier, {
   buffer = true,
   desc = "Format markdown with Prettier",
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    -- r: Automatically insert comment leader (bullet/number) after hitting <Enter>
+    -- o: Automatically insert comment leader after hitting 'o' or 'O' in Normal mode
+    -- n: Recognize numbered lists when formatting text
+    vim.opt_local.formatoptions:append("ron")
+
+    -- Tell Neovim to treat '1.', '-', '+', and '*' followed by a space as list leaders
+    vim.opt_local.comments = "b:*,b:-,b:+,n:>,b:1."
+  end,
+})
