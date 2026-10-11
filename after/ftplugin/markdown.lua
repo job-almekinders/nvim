@@ -1,7 +1,3 @@
--- I do not always want to format a markdown file as it can lead to a lot of changes that I do not
--- want to include in the same diff. Therefore, the methods here allow me to manually run formatting
--- when I want to.
-
 -- Uncomment to enable auto wrapping
 -- vim.opt_local.textwidth = 100
 
@@ -11,6 +7,9 @@ vim.opt_local.tabstop = 2
 vim.opt_local.softtabstop = 2
 vim.opt_local.expandtab = true
 
+-- I do not always want to format a markdown file as it can lead to a lot of changes that I do not
+-- want to include in the same diff. Therefore, the methods here allow me to manually run formatting
+-- when I want to.
 local function format_markdown_with_prettier()
   local bufnr = vim.api.nvim_get_current_buf()
   local filename = vim.api.nvim_buf_get_name(bufnr)
