@@ -1,5 +1,9 @@
 -- Util methods to keep todo lists in plain markdown files.
 
+-- Checkbox mark to set, keyed by the current mark ("" means the list item has no checkbox)
+local DONE_TOGGLE = { [""] = " ", [" "] = "x", ["/"] = "x", ["x"] = " ", ["X"] = " " }
+local IN_PROGRESS_TOGGLE = { [""] = "/", [" "] = "/", ["/"] = " ", ["x"] = "/", ["X"] = "/" }
+
 local function split_markdown_list_prefix(line)
   local list_prefix, content = line:match("^(%s*%- )(.*)$")
   return list_prefix or "", content or line
@@ -35,40 +39,47 @@ vim.keymap.set("n", "<leader>iT", function()
   vim.api.nvim_set_current_line(prefix .. (rest:gsub("^%[[^%]]*%]%s*", "")))
 end, { desc = "Remove leading [Tag] from line" })
 
--- Toggle "- [ ]" <-> "- [x]"; adds "[ ]" to list items without a checkbox
-local function toggle_checkbox(line)
-  local prefix, mark, rest = line:match("^(%s*%- )%[([ xX])%](.*)$")
+-- Set the checkbox of a "- " list item to the mark that next_mark maps its current mark to
+local function toggle_checkbox(line, next_mark)
+  local prefix, mark, rest = line:match("^(%s*%- )%[([ xX/])%](.*)$")
   if prefix then
-    return prefix .. (mark == " " and "[x]" or "[ ]") .. rest
+    return prefix .. "[" .. next_mark[mark] .. "]" .. rest
   end
   local list_prefix, content = line:match("^(%s*%- )(.*)$")
   if list_prefix then
-    return list_prefix .. "[ ] " .. content
+    return list_prefix .. "[" .. next_mark[""] .. "] " .. content
   end
   return line
 end
 
-local function toggle_checkboxes_in_range(first, last)
+local function toggle_checkboxes_in_range(first, last, next_mark)
   local lines = vim.api.nvim_buf_get_lines(0, first - 1, last, false)
   for i, line in ipairs(lines) do
-    lines[i] = toggle_checkbox(line)
+    lines[i] = toggle_checkbox(line, next_mark)
   end
   vim.api.nvim_buf_set_lines(0, first - 1, last, false, lines)
 end
 
-vim.keymap.set("n", "<leader>tx", function()
-  local row = vim.api.nvim_win_get_cursor(0)[1]
-  toggle_checkboxes_in_range(row, row)
-end, { desc = "[t]odo toggle checkbo[x]" })
+local function map_checkbox_toggle(lhs, next_mark, desc)
+  vim.keymap.set("n", lhs, function()
+    local row = vim.api.nvim_win_get_cursor(0)[1]
+    toggle_checkboxes_in_range(row, row, next_mark)
+  end, { desc = desc })
 
-vim.keymap.set("x", "<leader>tx", function()
-  local first, last = vim.fn.line("v"), vim.fn.line(".")
-  if first > last then
-    first, last = last, first
-  end
-  toggle_checkboxes_in_range(first, last)
-  vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
-end, { desc = "[t]odo toggle checkbo[x]" })
+  vim.keymap.set("x", lhs, function()
+    local first, last = vim.fn.line("v"), vim.fn.line(".")
+    if first > last then
+      first, last = last, first
+    end
+    toggle_checkboxes_in_range(first, last, next_mark)
+    vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
+  end, { desc = desc })
+end
+
+-- "[ ]" and "[/]" -> "[x]" -> "[ ]"
+map_checkbox_toggle("<leader>tx", DONE_TOGGLE, "[t]odo toggle checkbo[x]")
+-- "[ ]" and "[x]" -> "[/]" -> "[ ]"
+map_checkbox_toggle("<leader>tp", IN_PROGRESS_TOGGLE, "[t]odo toggle in [p]rogress")
 
 -- Open today's todo file in ~/todos (e.g. monday.md)
 vim.keymap.set("n", "<leader>gt", function()
