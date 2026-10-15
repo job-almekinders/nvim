@@ -22,6 +22,7 @@ return {
         "typescript",
         "json",
         "jsonc",
+        "just",
         "lua",
         "luadoc",
         "make",
