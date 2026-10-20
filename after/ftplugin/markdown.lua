@@ -64,3 +64,16 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.comments = "b:- [ ],b:*,b:-,b:+,n:>,b:1."
   end,
 })
+
+-- 'comments' only matches literal leaders, so "- [x]" or "- [/]" continues as a plain "- ". Add
+-- the empty box after that leader so every new checkbox starts unchecked.
+local function continue_checkbox(key)
+  return function()
+    local has_filled_box = vim.api.nvim_get_current_line():match("^%s*[-*+] %[[^ ]%]")
+    return has_filled_box and key .. "[ ] " or key
+  end
+end
+
+vim.keymap.set("i", "<CR>", continue_checkbox("<CR>"), { buffer = true, expr = true })
+vim.keymap.set("n", "o", continue_checkbox("o"), { buffer = true, expr = true })
+vim.keymap.set("n", "O", continue_checkbox("O"), { buffer = true, expr = true })
