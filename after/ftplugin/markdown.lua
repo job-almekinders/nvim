@@ -1,7 +1,7 @@
 -- Uncomment to enable auto wrapping
 -- vim.opt_local.textwidth = 100
 
-vim.opt.colorcolumn = "100"
+vim.opt_local.colorcolumn = "100"
 vim.opt_local.shiftwidth = 2
 vim.opt_local.tabstop = 2
 vim.opt_local.softtabstop = 2
@@ -51,29 +51,31 @@ vim.keymap.set("n", "<leader>fm", format_markdown_with_prettier, {
   desc = "Format markdown with Prettier",
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    -- r: Automatically insert comment leader (bullet/number) after hitting <Enter>
-    -- o: Automatically insert comment leader after hitting 'o' or 'O' in Normal mode
-    -- n: Recognize numbered lists when formatting text
-    vim.opt_local.formatoptions:append("ron")
+-- n: Recognize numbered lists when formatting text. lua/config/continuation.lua adds r and o.
+vim.opt_local.formatoptions:append("n")
 
-    -- Tell Neovim to treat '- [ ]', '1.', '-', '+', and '*' followed by a space as list leaders.
-    -- '- [ ]' must come before '-' so the checkbox is continued instead of a plain bullet.
-    vim.opt_local.comments = "b:- [ ],b:*,b:-,b:+,n:>,b:1."
-  end,
+-- Tell Neovim to treat '- [ ]', '-', '+', '*' and '>' followed by a space as list leaders.
+-- '- [ ]' must come before '-' so the checkbox is continued instead of a plain bullet. Numbered
+-- lists are continued by the rules below, which count up.
+vim.opt_local.comments = "b:- [ ],b:*,b:-,b:+,n:>"
+
+require("config.continuation").add_rules({
+  empty_items = { "^%s*[-*+] ?$", "^%s*[-*+] %[.%] ?$", "^%s*%d+%. ?$", "^%s*> ?$" },
+  leaders = {
+    -- 'comments' continues "- [x]" as a plain "- ", so start the next item with an empty box.
+    {
+      pattern = "^%s*[-*+] %[[^ ]%]",
+      keys = function(key)
+        return key .. "[ ] "
+      end,
+    },
+    -- 'comments' has no numbered leader, so count up here. "O" inserts above, so it reuses the
+    -- number.
+    {
+      pattern = "^%s*(%d+)%. ",
+      keys = function(key, number)
+        return key .. (key == "O" and number or number + 1) .. ". "
+      end,
+    },
+  },
 })
-
--- 'comments' only matches literal leaders, so "- [x]" or "- [/]" continues as a plain "- ". Add
--- the empty box after that leader so every new checkbox starts unchecked.
-local function continue_checkbox(key)
-  return function()
-    local has_filled_box = vim.api.nvim_get_current_line():match("^%s*[-*+] %[[^ ]%]")
-    return has_filled_box and key .. "[ ] " or key
-  end
-end
-
-vim.keymap.set("i", "<CR>", continue_checkbox("<CR>"), { buffer = true, expr = true })
-vim.keymap.set("n", "o", continue_checkbox("o"), { buffer = true, expr = true })
-vim.keymap.set("n", "O", continue_checkbox("O"), { buffer = true, expr = true })
