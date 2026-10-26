@@ -4,9 +4,13 @@
 local DONE_TOGGLE = { [""] = " ", [" "] = "x", ["/"] = "x", ["x"] = " ", ["X"] = " " }
 local IN_PROGRESS_TOGGLE = { [""] = "/", [" "] = "/", ["/"] = " ", ["x"] = "/", ["X"] = "/" }
 
+-- Split off a leading "- " list marker or "#" heading marker, so tags go after it
 local function split_markdown_list_prefix(line)
-  local list_prefix, content = line:match("^(%s*%- )(.*)$")
-  return list_prefix or "", content or line
+  local prefix, content = line:match("^(%s*%- )(.*)$")
+  if not prefix then
+    prefix, content = line:match("^(#+ )(.*)$")
+  end
+  return prefix or "", content or line
 end
 
 local function insert_tag_at_line_start(tag, move_cursor_into_tag)
@@ -22,12 +26,12 @@ local function insert_tag_at_line_start(tag, move_cursor_into_tag)
   end
 end
 
--- Insert [running] at the start of the current line (after "- " when present)
+-- Insert [running] at the start of the current line (after "- " or "#" when present)
 vim.keymap.set("n", "<leader>ir", function()
   insert_tag_at_line_start("[running]", false)
 end, { desc = "Insert [running] at line start" })
 
--- Insert [] at the start of the current line (after "- " when present), then enter insert mode inside []
+-- Insert [] at the start of the current line (after "- " or "#" when present), then enter insert mode inside []
 vim.keymap.set("n", "<leader>it", function()
   insert_tag_at_line_start("[]", true)
 end, { desc = "Insert [] at line start" })
