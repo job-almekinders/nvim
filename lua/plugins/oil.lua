@@ -25,7 +25,7 @@ return {
       desc = "Toggle File Explorer",
     },
     {
-      "<leader>yp",
+      "<leader>ypf",
       function()
         if vim.bo.filetype ~= "oil" then
           vim.notify("This keymap only works in Oil buffers.", vim.log.levels.WARN)
@@ -44,7 +44,7 @@ return {
         vim.fn.setreg("+", path)
         vim.notify("Yanked path: " .. path)
       end,
-      desc = "[Y]ank full [P]ath (Oil)",
+      desc = "[y]ank [p]ath [f]ull (oil)",
     },
   },
   lazy = false,
