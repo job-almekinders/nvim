@@ -1,5 +1,6 @@
 return {
-  cmd = { "typescript-language-server", "--stdio" },
+  -- TypeScript 7 (native) has a built-in LSP and no tsserver.js for typescript-language-server.
+  cmd = { "tsc", "--lsp", "--stdio" },
   filetypes = {
     "typescript",
     "typescriptreact",
