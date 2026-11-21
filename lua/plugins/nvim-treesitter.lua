@@ -18,8 +18,6 @@ return {
         "hcl",
         "html",
         "javascript",
-        "tsx",
-        "typescript",
         "json",
         "jsonc",
         "just",
@@ -33,13 +31,14 @@ return {
         "query",
         "regex",
         "sql",
-        "toml",
         "terraform",
+        "toml",
+        "tsx",
+        "typescript",
         "vimdoc",
         "yaml",
         "zsh",
       }
-
       vim.api.nvim_create_user_command("TSInstallManaged", function()
         require("nvim-treesitter").install(parsers)
       end, { desc = "Install the managed Treesitter parsers" })
