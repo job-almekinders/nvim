@@ -1,6 +1,5 @@
 require("config.keymaps.diagnostics")
 require("config.keymaps.python_venv")
 require("config.keymaps.text")
-require("config.keymaps.todo")
 require("config.keymaps.yank_open_buffers")
 require("config.keymaps.yank_path")
