@@ -46,9 +46,9 @@ local function format_markdown_with_prettier()
   vim.cmd.checktime()
 end
 
-vim.keymap.set("n", "<leader>fm", format_markdown_with_prettier, {
+vim.keymap.set("n", "<leader>mf", format_markdown_with_prettier, {
   buffer = true,
-  desc = "Format markdown with Prettier",
+  desc = "[m]arkdown [f]ormat with Prettier",
 })
 
 -- n: Recognize numbered lists when formatting text. lua/config/continuation.lua adds r and o.

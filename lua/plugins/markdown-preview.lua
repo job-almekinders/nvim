@@ -3,11 +3,11 @@ return {
   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
   keys = {
     {
-      "<leader>pm",
+      "<leader>mp",
       "<cmd>MarkdownPreviewToggle<CR>",
       ft = "markdown",
       mode = "n",
-      desc = "Toggle [p]review [m]arkdown",
+      desc = "[m]arkdown toggle [p]review",
     },
   },
   build = function()

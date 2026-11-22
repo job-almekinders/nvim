@@ -33,7 +33,7 @@ return {
       },
       format_on_save = function(bufnr)
         -- Skip markdown in directories listed in `lua/config/local.lua`; format manually with
-        -- <leader>fm instead.
+        -- <leader>mf instead.
         if vim.bo[bufnr].filetype == "markdown" then
           local ok, local_config = pcall(require, "config.local")
           local skip_dirs = ok and local_config.markdown_no_format_on_save or {}
